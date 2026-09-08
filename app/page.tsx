@@ -1,3 +1,5 @@
+import Link from "next/link"; 
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-gray-900 flex flex-col items-center justify-center">
@@ -12,9 +14,13 @@ export default function HomePage() {
             Check your loan eligibility in seconds using AI-powered credit scoring.
          </p>
 
-         <button className="bg-green-500 text-white px-8 py-4 rounded-lg text-lg font-semibold mt-8">
-            Check My Eligibility
-         </button>
+        <Link 
+  href="/apply" 
+  className="block text-center bg-green-500 text-white px-8 py-4 rounded-lg text-lg font-semibold mt-8"
+>
+  Check My Eligibility
+</Link>
+        
       </div>
     </main>
   )
