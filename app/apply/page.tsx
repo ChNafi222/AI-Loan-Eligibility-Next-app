@@ -17,6 +17,8 @@ export default function ApplyPage() {
   const [score, setScore] = useState<number | null>(null)
   const [decision, setDecision] = useState<Decision | null>(null)
 
+ 
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
@@ -109,12 +111,49 @@ export default function ApplyPage() {
 
       </form>
 
+      
+
+     
+
       {score !== null && (
-        <div className="mt-8 text-center">
-          <p className="text-white text-2xl font-bold">Score: {score}</p>
-          <p className="text-green-400 text-xl mt-2">Decision: {decision}</p>
-        </div>
-      )}
+  <div className="w-full max-w-md mt-8 bg-gray-800 rounded-xl p-6">
+    
+    {/* Score number */}
+    <p className="text-gray-400 text-sm uppercase tracking-wide">Your Score</p>
+    <p className="text-white text-6xl font-bold mt-2">{score}</p>
+
+    {/* Progress bar */}
+    <div className="w-full bg-gray-700 rounded-full h-3 mt-4">
+      <div
+        className="bg-green-500 h-3 rounded-full"
+        style={{ width: `${Math.min((score / 950) * 100, 100)}%` }}
+      />
+    </div>
+    <div className="flex justify-between text-gray-500 text-xs mt-1">
+      <span>0</span>
+      <span>950</span>
+    </div>
+
+    {/* Decision badge */}
+    <div className="mt-6">
+      <p className="text-gray-400 text-sm uppercase tracking-wide">Decision</p>
+      <span className={`inline-block mt-2 px-6 py-2 rounded-full text-white font-semibold text-lg ${
+        decision === "Approved" ? "bg-green-500" :
+        decision === "Refer" ? "bg-yellow-500" :
+        "bg-red-500"
+      }`}>
+        {decision}
+      </span>
+    </div>
+
+    {/* Applicant name */}
+    <div className="mt-6 border-t border-gray-700 pt-4">
+      <p className="text-gray-400 text-sm">Applicant</p>
+      <p className="text-white font-semibold mt-1">{formData.fullName}</p>
+    </div>
+
+  </div>
+)}
 
     </main>
   )
