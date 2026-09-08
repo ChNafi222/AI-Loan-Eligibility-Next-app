@@ -1,6 +1,6 @@
-type Decision = "Approved" | "Refer" | "Declined"
+export type Decision = "Approved" | "Refer" | "Declined"
 
-interface LoanApplicant {
+export interface LoanApplicant {
   fullName: string
   annualIncome: number
   employmentType: "employed" | "unemployed" | "self-employed"
@@ -9,16 +9,8 @@ interface LoanApplicant {
   monthlyDebt: number
 }
 
-const applicant: LoanApplicant = {
-  fullName: "ABDUL MUNAF",
-  annualIncome: 200000,
-  employmentType: "unemployed",
-  loanAmount: 1000000,
-  creditScore: 400,
-  monthlyDebt: 1500
-}
 
-function calculateScore(applicant: LoanApplicant): number {
+export function calculateScore(applicant: LoanApplicant): number {
   let score = 500
 
   const monthlyIncome = applicant.annualIncome / 12
@@ -61,7 +53,7 @@ function calculateScore(applicant: LoanApplicant): number {
   return score
 }
 
-function getDecision(score: number): Decision {
+export function getDecision(score: number): Decision {
   if (score > 700) {
     return "Approved"
   } else if (score <= 700 && score >= 500) {
@@ -70,8 +62,3 @@ function getDecision(score: number): Decision {
     return "Declined"
   }
 }
-
-const score = calculateScore(applicant)
-const decision = getDecision(score)
-console.log("Score:", score)
-console.log("Decision:", decision)
