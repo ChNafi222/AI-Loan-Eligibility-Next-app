@@ -20,6 +20,11 @@ export default function HomePage() {
 >
   Check My Eligibility
 </Link>
+<Link href="/history"
+className="block text-center text-gray-400 mt-4 unwerline hover:text-white">
+  View Application History
+
+</Link>
         
       </div>
     </main>
