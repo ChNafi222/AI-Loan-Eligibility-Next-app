@@ -1,6 +1,6 @@
 "use client"
 
-import { calculateScore, getDecision, LoanApplicant, Decision } from "@/lib/scoring"
+import { Decision } from "@/lib/scoring"
 import { useState } from "react"
 
 export default function ApplyPage() {
@@ -19,23 +19,19 @@ export default function ApplyPage() {
 
  
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
-    const applicant: LoanApplicant = {
-      fullName: formData.fullName,
-      annualIncome: Number(formData.annualIncome),
-      employmentType: formData.employmentType as "employed" | "unemployed" | "self-employed",
-      loanAmount: Number(formData.loanAmount),
-      creditScore: formData.creditScore ? Number(formData.creditScore) : undefined,
-      monthlyDebt: Number(formData.monthlyDebt)
-    }
+    const response = await fetch("/api/apply",{
+      method :   "POST" ,
+      headers : { "Content-Type"  : "application/json" },
+      body: JSON.stringify(formData)
+    })
 
-    const result = calculateScore(applicant)
-    const outcome = getDecision(result)
+    const data = await response.json()
 
-    setScore(result)
-    setDecision(outcome)
+    setScore(data.score)
+    setDecision(data.decision)
   }
 
   return (
