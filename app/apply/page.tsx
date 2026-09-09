@@ -16,6 +16,7 @@ export default function ApplyPage() {
 
   const [score, setScore] = useState<number | null>(null)
   const [decision, setDecision] = useState<Decision | null>(null)
+  const [explanation,setExplanation]=useState<string | null>(null)
 
  
 
@@ -32,6 +33,20 @@ export default function ApplyPage() {
 
     setScore(data.score)
     setDecision(data.decision)
+
+    const explainResponse = await fetch("/api/explain",
+      {
+        method:"POST",
+        headers :{"Content-Type" : "application/json"},
+        body: JSON.stringify({
+          ...formData,
+          score : data.score,
+          decision: data.decision
+        })
+      }
+    )
+    const explainData = await explainResponse.json()
+     setExplanation(explainData.explanation)
   }
 
   return (
@@ -148,6 +163,15 @@ export default function ApplyPage() {
       <p className="text-white font-semibold mt-1">{formData.fullName}</p>
     </div>
 
+  </div>
+)}
+
+{explanation && (
+  <div className="w-full max-w-md mt-6 bg-gray-800 rounded-xl p-6">
+    <p className="text-gray-400 text-sm uppercase tracking-wide mb-3">
+      AI Explanation
+    </p>
+    <p className="text-white leading-relaxed">{explanation}</p>
   </div>
 )}
 
